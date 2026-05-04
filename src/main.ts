@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, Logger } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -15,8 +16,26 @@ async function bootstrap() {
     }),
   );
 
-  // ── CORS (ajustar en producción) ───────────────────────────────────────
+
   app.enableCors();
+
+  const config = new DocumentBuilder()
+    .setTitle('API Gestión de Usuarios')
+    .setDescription('API REST con control de acceso basado en roles (RBAC)')
+    .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Ingresa el token JWT obtenido en POST /auth/login',
+      },
+      'JWT-auth',
+    )
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, document);
 
   const port = process.env.PORT ?? 3000;
   await app.listen(port);

@@ -10,17 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterDto = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class RegisterDto {
 }
 exports.RegisterDto = RegisterDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Juan Pérez', description: 'Nombre completo del usuario' }),
     (0, class_validator_1.IsString)({ message: 'El nombre debe ser texto' }),
     (0, class_validator_1.IsNotEmpty)({ message: 'El nombre es requerido' }),
     (0, class_validator_1.MaxLength)(100, { message: 'El nombre no puede exceder 100 caracteres' }),
     __metadata("design:type", String)
 ], RegisterDto.prototype, "nombre", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 'juanperez', description: 'Nombre de usuario único (solo letras, números y _)' }),
     (0, class_validator_1.IsString)({ message: 'El username debe ser texto' }),
     (0, class_validator_1.IsNotEmpty)({ message: 'El username es requerido' }),
     (0, class_validator_1.MinLength)(3, { message: 'El username debe tener al menos 3 caracteres' }),
@@ -31,6 +34,7 @@ __decorate([
     __metadata("design:type", String)
 ], RegisterDto.prototype, "username", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: '123456', description: 'Contraseña (mínimo 6 caracteres)', minLength: 6 }),
     (0, class_validator_1.IsString)({ message: 'La contraseña debe ser texto' }),
     (0, class_validator_1.IsNotEmpty)({ message: 'La contraseña es requerida' }),
     (0, class_validator_1.MinLength)(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
