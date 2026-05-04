@@ -17,7 +17,7 @@ exports.DatabaseSeeder = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const user_entity_1 = require("../users/user.entity");
 const role_enum_1 = require("../common/enums/role.enum");
 let DatabaseSeeder = DatabaseSeeder_1 = class DatabaseSeeder {

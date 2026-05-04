@@ -20,18 +20,16 @@ import { DatabaseSeeder } from './database/database.seeder';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('DB_HOST', 'localhost'),
+        host: configService.get<string>('DB_HOST'),
         port: configService.get<number>('DB_PORT', 5432),
-        username: configService.get<string>('DB_USERNAME', 'postgres'),
-        password: configService.get<string>('DB_PASSWORD', 'postgres'),
-        database: configService.get<string>('DB_NAME', 'nestjs_rbac'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_NAME'),
         entities: [User],
-        synchronize: false,
-        ssl: configService.get('DB_SSL') === 'true' ? {
-          rejectUnauthorized: false,
-        } : false,
-        autoLoadEntities: true,
-        logging: configService.get<string>('NODE_ENV') === 'development',
+        synchronize: true,
+        ssl: {
+          rejectUnauthorized: false,  // ← necesario para Aiven
+        },
       }),
     }),
 
@@ -43,4 +41,4 @@ import { DatabaseSeeder } from './database/database.seeder';
   ],
   providers: [DatabaseSeeder],
 })
-export class AppModule {}
+export class AppModule { }
